@@ -1,0 +1,6 @@
+displayName = Build with "dotnet build"
+author = LolXD87, JamzOJamz
+version = 1.0
+homepage = https://github.com/JamzOJamz/tML-BuildWithDotnetBuild
+hideCode = false
+hideResources = false

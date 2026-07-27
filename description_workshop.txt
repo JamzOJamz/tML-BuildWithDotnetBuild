@@ -1,0 +1,5 @@
+This mod replaces tModLoader's internal mod compiler with a plain "dotnet build" call. When you build a mod in the Mod Sources menu, it runs "dotnet build -c:Release" on your mod's .csproj instead of going through tModLoader's internal Roslyn-based compiler.
+
+It's useful if you want to build mods in-game using the full power of the .NET SDK features tModLoader's internal compiler doesn't support. Normally tModLoader ignores everything you put in your .csproj and builds with its own hardcoded settings, but with this mod, whatever you configure actually gets respected. It's basically like building from your IDE, without leaving the game :p
+
+Originally programmed by LolXD87 and improved for release/published with permission by JamzOJamz. This mod is open source and can be found on GitHub at https://github.com/JamzOJamz/tML-BuildWithDotnetBuild.
