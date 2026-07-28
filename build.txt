@@ -3,5 +3,4 @@ author = LolXD87, JamzOJamz
 version = 1.0
 homepage = https://github.com/JamzOJamz/tML-BuildWithDotnetBuild
 side = Client
-hideCode = false
-hideResources = false
+includeSource = true
