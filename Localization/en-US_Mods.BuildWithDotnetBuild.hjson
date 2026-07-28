@@ -1,1 +1,4 @@
-
+Misc: {
+	MaybeStuckStatusHint: " (Stuck? See logs)"
+	MaybeStuckLogMessage: Mod compilation has been hanging for over 10 seconds! If you see this message and the mod build/compilation never seems to progress, try killing the "dotnet build" process (PID: {0}) through Task Manager.
+}

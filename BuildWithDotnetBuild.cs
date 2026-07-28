@@ -56,10 +56,11 @@ public class BuildWithDotnetBuild : Mod
             if (!process.WaitForExit(10000))
             {
                 var instance = Instance;
-                instance?.Logger.Error(
-                    $"Mod compilation hung for over 10 seconds! If you see this message and the mod build/compilation never seems to progress try killing the 'dotnet build' process (PID: {process.Id}) through task manager.");
+                instance?.Logger.Error(Language.GetTextValue("Mods.BuildWithDotnetBuild.Misc.MaybeStuckLogMessage",
+                    process.Id));
 
-                self.status.SetStatus(Language.GetTextValue("tModLoader.Building", mod.Name) + "(Stuck? see logs)");
+                self.status.SetStatus(Language.GetTextValue("tModLoader.Building", mod.Name) +
+                                      Language.GetTextValue("Mods.BuildWithDotnetBuild.Misc.MaybeStuckStatusHint"));
             }
 
             process.WaitForExit();
