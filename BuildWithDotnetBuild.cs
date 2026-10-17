@@ -37,9 +37,11 @@ public class BuildWithDotnetBuild : Mod
             var errorLogPath = Path.Combine(Path.GetDirectoryName(Path.GetFullPath(Logging.LogPath))!,
                 "dotnetBuildErrorLog.log");
             var modDirectoryInfo = new DirectoryInfo(mod.path);
-            using var process = ModCompile.StartOnHost(new ProcessStartInfo
+
+            var dotnetPath = UIModSources.GetSystemDotnetPath();
+            var psi = new ProcessStartInfo
             {
-                FileName = UIModSources.GetSystemDotnetPath(),
+                FileName = dotnetPath,
                 Arguments = BuildArguments(
                     "build",
                     "-c:Release",
@@ -52,7 +54,18 @@ public class BuildWithDotnetBuild : Mod
                     ["dotnet_dir"] = null,
                     ["dotnet_version"] = null,
                 }
-            })!;
+            };
+
+            // Fix for exit code 127 on macOS/Linux: the post-build Exec in tMLMod.targets
+            // runs bare `dotnet` via /bin/sh, so dotnet's directory must be on the child's PATH.
+            if (!OperatingSystem.IsWindows())
+            {
+                var dotnetDir = Path.GetDirectoryName(dotnetPath);
+                if (!string.IsNullOrEmpty(dotnetDir))
+                    psi.Environment["PATH"] = dotnetDir + ":" + Environment.GetEnvironmentVariable("PATH");
+            }
+
+            using var process = ModCompile.StartOnHost(psi)!;
             if (!process.WaitForExit(10000))
             {
                 var instance = Instance;
